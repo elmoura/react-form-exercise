@@ -1,14 +1,19 @@
-import { useState, FormEvent, ChangeEvent } from "react";
-import { Button } from "../../UI/Button";
+import { useState, FormEvent, ChangeEvent, FunctionComponent } from "react";
 import { Card } from "../../UI/Card";
+import { Button } from "../../UI/Button";
 import styles from "./styles.module.css";
+import { IUser } from "../../../models/User";
 
-export const AddUser = () => {
-  const [username, setUsername] = useState("");
+type Props = {
+  onAddUser: (user: IUser) => void;
+};
+
+export const AddUser: FunctionComponent<Props> = ({ onAddUser }) => {
+  const [name, setName] = useState("");
   const [age, setAge] = useState("");
 
-  const handleUsernameChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setUsername(event.target.value);
+  const handleUserNameChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setName(event.target.value);
   };
 
   const handleAgeChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -18,25 +23,27 @@ export const AddUser = () => {
   const addUserHandler = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (username.trim().length === 0 || age.trim().length === 0) return;
+    if (name.trim().length === 0 || age.trim().length === 0) return;
 
     if (Number(age) < 1) return;
 
-    console.log({ age, username });
+    console.log({ age, name });
+
+    onAddUser({ name, age: Number(age) });
 
     setAge("");
-    setUsername("");
+    setName("");
   };
 
   return (
     <Card className={styles.input}>
       <form onSubmit={addUserHandler}>
-        <label htmlFor="username">Username</label>
+        <label htmlFor="username">User name</label>
         <input
           id="username"
           type="text"
-          onChange={handleUsernameChange}
-          value={username}
+          onChange={handleUserNameChange}
+          value={name}
         />
 
         <label htmlFor="age">Age (years)</label>
