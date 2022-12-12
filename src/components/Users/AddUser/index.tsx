@@ -3,14 +3,22 @@ import { Card } from "../../UI/Card";
 import { Button } from "../../UI/Button";
 import styles from "./styles.module.css";
 import { IUser } from "../../../models/User";
+import { ErrorModal, ModalError } from "../../UI/ErrorModal";
 
 type Props = {
   onAddUser: (user: Omit<IUser, "id">) => void;
 };
 
 export const AddUser: FunctionComponent<Props> = ({ onAddUser }) => {
-  const [name, setName] = useState("");
+  const emptyError: ModalError = { title: "", message: "" };
+
   const [age, setAge] = useState("");
+  const [name, setName] = useState("");
+  const [error, setError] = useState<ModalError>(emptyError);
+
+  const handleErrorModalConfirmation = (): void => {
+    setError(emptyError);
+  };
 
   const handleUserNameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
@@ -23,9 +31,22 @@ export const AddUser: FunctionComponent<Props> = ({ onAddUser }) => {
   const addUserHandler = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (name.trim().length === 0 || age.trim().length === 0) return;
+    if (name.trim().length === 0 || age.trim().length === 0) {
+      setError({
+        title: "Something went wrong!",
+        message:
+          "Both name and age are required. Please fill the fields with data.",
+      });
+      return;
+    }
 
-    if (Number(age) < 1) return;
+    if (Number(age) < 1) {
+      setError({
+        title: "Something went wrong!",
+        message: "Your age must be greater than 1.",
+      });
+      return;
+    }
 
     console.log({ age, name });
 
@@ -36,21 +57,35 @@ export const AddUser: FunctionComponent<Props> = ({ onAddUser }) => {
   };
 
   return (
-    <Card className={styles.input}>
-      <form onSubmit={addUserHandler}>
-        <label htmlFor="username">User name</label>
-        <input
-          id="username"
-          type="text"
-          onChange={handleUserNameChange}
-          value={name}
+    <div>
+      {error.message && (
+        <ErrorModal
+          title={error.title}
+          message={error.message}
+          onClickOk={handleErrorModalConfirmation}
         />
+      )}
+      <Card className={styles.input}>
+        <form onSubmit={addUserHandler}>
+          <label htmlFor="username">User name</label>
+          <input
+            id="username"
+            type="text"
+            onChange={handleUserNameChange}
+            value={name}
+          />
 
-        <label htmlFor="age">Age (years)</label>
-        <input id="age" type="number" onChange={handleAgeChange} value={age} />
+          <label htmlFor="age">Age (years)</label>
+          <input
+            id="age"
+            type="number"
+            onChange={handleAgeChange}
+            value={age}
+          />
 
-        <Button type="submit">Add user</Button>
-      </form>
-    </Card>
+          <Button type="submit">Add user</Button>
+        </form>
+      </Card>
+    </div>
   );
 };
