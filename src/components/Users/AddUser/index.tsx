@@ -18,10 +18,14 @@ export const AddUser = () => {
   const addUserHandler = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    console.log({
-      username,
-      age,
-    });
+    if (username.trim().length === 0 || age.trim().length === 0) return;
+
+    if (Number(age) < 1) return;
+
+    console.log({ age, username });
+
+    setAge("");
+    setUsername("");
   };
 
   return (
