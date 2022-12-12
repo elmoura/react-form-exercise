@@ -18,7 +18,7 @@ export const ErrorModal: FunctionComponent<Props> = ({
   onConfirm,
 }) => {
   return (
-    <div className={styles.backdrop}>
+    <div className={styles.backdrop} onClick={onConfirm}>
       <Card className={styles.modal}>
         <header className={styles.header}>
           <h2>{title}</h2>
