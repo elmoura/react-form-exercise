@@ -6,8 +6,11 @@ import { IUser } from "./models/User";
 function App() {
   const [usersList, setUsersList] = useState<IUser[]>([]);
 
-  const addUserHandler = (newUser: IUser) => {
-    setUsersList((exisitingUsers) => [newUser, ...exisitingUsers]);
+  const addUserHandler = (newUser: Omit<IUser, "id">) => {
+    setUsersList((exisitingUsers) => [
+      { ...newUser, id: Math.random().toString() },
+      ...exisitingUsers,
+    ]);
   };
 
   return (

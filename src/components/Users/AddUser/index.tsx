@@ -5,7 +5,7 @@ import styles from "./styles.module.css";
 import { IUser } from "../../../models/User";
 
 type Props = {
-  onAddUser: (user: IUser) => void;
+  onAddUser: (user: Omit<IUser, "id">) => void;
 };
 
 export const AddUser: FunctionComponent<Props> = ({ onAddUser }) => {
