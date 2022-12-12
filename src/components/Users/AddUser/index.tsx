@@ -48,8 +48,6 @@ export const AddUser: FunctionComponent<Props> = ({ onAddUser }) => {
       return;
     }
 
-    console.log({ age, name });
-
     onAddUser({ name, age: Number(age) });
 
     setAge("");
@@ -62,7 +60,7 @@ export const AddUser: FunctionComponent<Props> = ({ onAddUser }) => {
         <ErrorModal
           title={error.title}
           message={error.message}
-          onClickOk={handleErrorModalConfirmation}
+          onConfirm={handleErrorModalConfirmation}
         />
       )}
       <Card className={styles.input}>

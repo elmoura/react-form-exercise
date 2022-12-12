@@ -1,6 +1,6 @@
+import { FunctionComponent } from "react";
 import { Card } from "../Card";
 import { Button } from "../Button";
-import { FunctionComponent } from "react";
 import styles from "./styles.module.css";
 
 export type ModalError = {
@@ -9,13 +9,13 @@ export type ModalError = {
 };
 
 type Props = ModalError & {
-  onClickOk: () => void;
+  onConfirm: () => void;
 };
 
 export const ErrorModal: FunctionComponent<Props> = ({
   title,
   message,
-  onClickOk,
+  onConfirm,
 }) => {
   return (
     <div className={styles.backdrop}>
@@ -29,7 +29,7 @@ export const ErrorModal: FunctionComponent<Props> = ({
         </div>
 
         <footer className={styles.actions}>
-          <Button onClick={onClickOk}>Okay</Button>
+          <Button onClick={onConfirm}>Okay</Button>
         </footer>
       </Card>
     </div>
