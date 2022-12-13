@@ -4,6 +4,7 @@ import { Button } from "../../UI/Button";
 import styles from "./styles.module.css";
 import { IUser } from "../../../models/User";
 import { ErrorModal, ModalError } from "../../UI/ErrorModal";
+import { Wrapper } from "../../Helpers/Wrapper";
 
 type Props = {
   onAddUser: (user: Omit<IUser, "id">) => void;
@@ -55,7 +56,7 @@ export const AddUser: FunctionComponent<Props> = ({ onAddUser }) => {
   };
 
   return (
-    <div>
+    <Wrapper>
       {error.message && (
         <ErrorModal
           title={error.title}
@@ -84,6 +85,6 @@ export const AddUser: FunctionComponent<Props> = ({ onAddUser }) => {
           <Button type="submit">Add user</Button>
         </form>
       </Card>
-    </div>
+    </Wrapper>
   );
 };
