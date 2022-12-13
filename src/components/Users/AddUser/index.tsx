@@ -1,10 +1,15 @@
-import { useState, FormEvent, ChangeEvent, FunctionComponent } from "react";
+import {
+  useState,
+  FormEvent,
+  ChangeEvent,
+  FunctionComponent,
+  Fragment,
+} from "react";
 import { Card } from "../../UI/Card";
 import { Button } from "../../UI/Button";
 import styles from "./styles.module.css";
 import { IUser } from "../../../models/User";
 import { ErrorModal, ModalError } from "../../UI/ErrorModal";
-import { Wrapper } from "../../Helpers/Wrapper";
 
 type Props = {
   onAddUser: (user: Omit<IUser, "id">) => void;
@@ -56,7 +61,7 @@ export const AddUser: FunctionComponent<Props> = ({ onAddUser }) => {
   };
 
   return (
-    <Wrapper>
+    <Fragment>
       {error.message && (
         <ErrorModal
           title={error.title}
@@ -85,6 +90,6 @@ export const AddUser: FunctionComponent<Props> = ({ onAddUser }) => {
           <Button type="submit">Add user</Button>
         </form>
       </Card>
-    </Wrapper>
+    </Fragment>
   );
 };
