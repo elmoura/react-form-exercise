@@ -7,9 +7,9 @@ import {
 } from "react";
 import { Card } from "../../UI/Card";
 import { Button } from "../../UI/Button";
-import styles from "./styles.module.css";
 import { IUser } from "../../../models/User";
 import { ErrorModal, ModalError } from "../../UI/ErrorModal";
+import styles from "./styles.module.css";
 
 type Props = {
   onAddUser: (user: Omit<IUser, "id">) => void;
